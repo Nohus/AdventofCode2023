@@ -1,4 +1,7 @@
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.runBlocking
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 import java.io.File
@@ -54,6 +57,28 @@ fun solve(
     val input = getInput().let { if (trim) it.trim() else it }
     printInput(input)
     solveRaw(input.lines(), additionalTiming, solve)
+}
+
+fun solveRawSuspending(
+    additionalTiming: Boolean = false,
+    trim: Boolean = true,
+    solve: suspend CoroutineScope.(String) -> Any?
+) {
+    val scope = CoroutineScope(Job())
+    val input = getInput().let { if (trim) it.trim() else it }
+    printInput(input)
+    solveRaw(input, additionalTiming) { runBlocking { scope.solve(it) } }
+}
+
+fun solveSuspending(
+    additionalTiming: Boolean = false,
+    trim: Boolean = true,
+    solve: suspend CoroutineScope.(List<String>) -> Any?
+) {
+    val scope = CoroutineScope(Job())
+    val input = getInput().let { if (trim) it.trim() else it }
+    printInput(input)
+    solveRaw(input.lines(), additionalTiming) { runBlocking { scope.solve(it) } }
 }
 
 @OptIn(ExperimentalTime::class)

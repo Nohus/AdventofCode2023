@@ -11,6 +11,18 @@ fun leastCommonMultiple(a: Int, b: Int): Int {
     return a * b / greatestCommonDivisor(a, b)
 }
 
+fun leastCommonMultiple(a: Long, b: Long): Long {
+    return a * b / greatestCommonDivisor(a, b)
+}
+
+fun leastCommonMultiple(numbers: List<Int>): Int {
+    return numbers.reduce { acc, i -> leastCommonMultiple(acc, i) }
+}
+
+fun leastCommonMultiple(numbers: List<Long>): Long {
+    return numbers.reduce { acc, i -> leastCommonMultiple(acc, i) }
+}
+
 tailrec fun greatestCommonDivisor(a: Int, b: Int): Int {
     return if (b == 0) a
     else greatestCommonDivisor(b, a % b)

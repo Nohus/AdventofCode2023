@@ -58,6 +58,16 @@ data class Point(val x: Int, val y: Int) {
     }
 }
 
+fun List<String>.toArea(): Map<Point, Char> {
+    return mutableMapOf<Point, Char>().also {
+        forEachIndexed { y, row ->
+            row.forEachIndexed { x, char ->
+                it[Point(x, y)] = char
+            }
+        }
+    }
+}
+
 fun <T> Map<Point, T>.printArea(visualization: (T) -> Char = { it.toString()[0] }) {
     val xRange = keys.minOf { it.x }..keys.maxOf { it.x }
     val yRange = keys.minOf { it.y }..keys.maxOf { it.y }
