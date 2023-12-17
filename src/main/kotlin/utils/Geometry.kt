@@ -58,14 +58,18 @@ data class Point(val x: Int, val y: Int) {
     }
 }
 
-fun List<String>.toArea(): Map<Point, Char> {
-    return mutableMapOf<Point, Char>().also {
+fun <T> List<String>.toGrid(transform: (Char) -> T): Map<Point, T> {
+    return mutableMapOf<Point, T>().also {
         forEachIndexed { y, row ->
             row.forEachIndexed { x, char ->
-                it[Point(x, y)] = char
+                it[Point(x, y)] = transform(char)
             }
         }
     }
+}
+
+fun List<String>.toGrid(): Map<Point, Char> {
+    return toGrid { it }
 }
 
 fun <T> Map<Point, T>.printArea(visualization: (T) -> Char = { it.toString()[0] }) {

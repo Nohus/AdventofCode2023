@@ -2,16 +2,14 @@ package day16
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.runBlocking
-import solve
 import solveSuspending
 import utils.Direction
 import utils.Direction.*
 import utils.Point
-import utils.toArea
+import utils.toGrid
 
 fun main() = solveSuspending { lines ->
-    val grid = lines.toArea()
+    val grid = lines.toGrid()
     val maxX = grid.keys.maxOf { it.x }
     val maxY = grid.keys.maxOf { it.y }
     data class Beam(val position: Point, val direction: Direction)

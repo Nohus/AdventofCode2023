@@ -7,10 +7,10 @@ import utils.Direction.NORTH
 import utils.Direction.SOUTH
 import utils.Direction.WEST
 import utils.Point
-import utils.toArea
+import utils.toGrid
 
 fun main() = solve { lines ->
-    val grid = lines.toArea()
+    val grid = lines.toGrid()
     data class Beam(val position: Point, val direction: Direction)
     val beams = mutableListOf(Beam(Point(-1, 0), EAST))
     val beamsHistory = mutableSetOf<Beam>()
