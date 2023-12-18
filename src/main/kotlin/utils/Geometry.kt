@@ -4,6 +4,20 @@ import utils.Direction.*
 import utils.Turn.*
 import kotlin.math.*
 
+data class PointL(val x: Long, val y: Long) {
+
+    companion object {
+        val ORIGIN = PointL(0, 0)
+    }
+
+    fun move(direction: Direction, distance: Long = 1) = when (direction) {
+        EAST -> PointL(x + distance, y)
+        WEST -> PointL(x - distance, y)
+        NORTH -> PointL(x, y - distance)
+        SOUTH -> PointL(x, y + distance)
+    }
+}
+
 data class Point(val x: Int, val y: Int) {
 
     companion object {
